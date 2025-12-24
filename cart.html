@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KFC Cart</title>
+<link rel="icon" type="image" href="ebpng.webp">
+<style>
+body{font-family:'Segoe UI',sans-serif;background:#fff8f0;color:#333;padding:2rem;}
+h1{text-align:center;color:#d60000;margin-bottom:2rem;}
+table{width:100%;border-collapse:collapse;margin-bottom:2rem;}
+th,td{padding:12px;text-align:center;border-bottom:1px solid #ddd;}
+th{background:#d60000;color:white;}
+img{width:80px;height:80px;object-fit:cover;border-radius:5px;}
+button{padding:5px 10px;background:#d60000;color:white;border:none;border-radius:5px;cursor:pointer;margin:0 2px;}
+button:hover{background:#b00000;}
+.qty-btn{background:#fff;color:#d60000;border:1px solid #d60000;padding:2px 8px;}
+.qty-btn:hover{background:#d60000;color:#fff;}
+.total{font-weight:bold;font-size:1.2rem;text-align:right;margin-top:1rem;}
+</style>
+</head>
+<body>
+
+<h1>Your Cart</h1>
+
+<table id="cartTable">
+<thead>
+<tr>
+<th>Item</th>
+<th>Name</th>
+<th>Price</th>
+<th>Quantity</th>
+<th>Total</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<!-- Cart items inserted here -->
+</tbody>
+</table>
+
+<div class="total" id="grandTotal">Grand Total: ₹0</div>
+
+<script>
+// Load cart items
+let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+const cartTableBody = document.querySelector("#cartTable tbody");
+const grandTotalEl = document.getElementById("grandTotal");
+
+// Render cart
+function renderCart() {
+  cartTableBody.innerHTML = "";
+  let grandTotal = 0;
+
+  cartItems.forEach((item, index) => {
+    const itemTotal = item.price * item.qty;
+    grandTotal += itemTotal;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td><img src="${item.img}" alt="${item.name}"></td>
+      <td>${item.name}</td>
+      <td>₹${item.price}</td>
+      <td>
+        <button class="qty-btn" onclick="decreaseQty(${index})">-</button>
+        ${item.qty}
+        <button class="qty-btn" onclick="increaseQty(${index})">+</button>
+      </td>
+      <td>₹${itemTotal}</td>
+      <td><button onclick="removeItem(${index})">Remove</button></td>
+    `;
+    cartTableBody.appendChild(row);
+  });
+
+  grandTotalEl.textContent = `Grand Total: ₹${grandTotal}`;
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+}
+
+// Increase quantity
+function increaseQty(index) {
+  cartItems[index].qty++;
+  renderCart();
+}
+
+// Decrease quantity
+function decreaseQty(index) {
+  if(cartItems[index].qty > 1) {
+    cartItems[index].qty--;
+  } else {
+    cartItems.splice(index, 1); // remove if qty reaches 0
+  }
+  renderCart();
+}
+
+// Remove item completely
+function removeItem(index) {
+  cartItems.splice(index, 1);
+  renderCart();
+}
+
+// Initial render
+renderCart();
+
+// updated addToCart()
+function addToCart(itemName) {
+  let price = prices[itemName];
+
+  // image mapping
+  const images = {
+    "Variety Bucket": "KFC-Variety-Bucket.webp",
+    "Box-Meals": "KFC-Box-Meals.webp",
+    "Value Lunch": "KFC-Value-Lunch.webp",
+    "VEGZINGER": "VEGZINGER.jpg",
+    "Zinger Burger": "KFC-BOGO-CHICKEN-ZINGER-22-JULY-465-X-327-F1B.webp",
+    "Beverages": "KFC-Beverages.webp",
+    "Golden Burger": "KFC-Gold-Burger-White-Category-23MAY_4.webp",
+    "Burger": "KFC-Burger.webp",
+    "Rice Bowl": "KFC-rice-bowl.webp"
+  };
+
+  let img = images[itemName];
+
+  alert(itemName + " added to cart! Price: ₹" + price);
+
+  // check if item already exists
+  let existing = cartItems.find(item => item.name === itemName);
+
+  if (existing) {
+    existing.qty++;       // increase quantity
+  } else {
+    cartItems.push({
+      name: itemName,
+      price: price,
+      qty: 1,
+      img: img
+    });
+  }
+
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  document.getElementById("cart").textContent = cartItems.length;
+}
+
+</script>
+
+</body>
+</html>

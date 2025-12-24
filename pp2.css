@@ -1,0 +1,124 @@
+/* Base styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
+  color: #333;
+}
+
+/* Header */
+header {
+  background: #d60000;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+nav a {
+  margin: 0 15px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Hero Section */
+.hero {
+  text-align: left;
+  padding: 40px 20px;
+  background: #f8f6f6;
+}
+
+.hero img {
+  width: 300px;
+  border-radius: 10px;
+}
+
+.hero h2 {
+  color: #d60000;
+  margin-top: 20px;
+}
+
+.hero button {
+  padding: 10px 20px;
+  background: #d60000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Image Row */
+.image-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
+  text-align: center;
+}
+
+.image-row img {
+  width: 300px;
+  border-radius: 10px;
+  padding: 1px 2px;
+  background: #544949;
+  cursor: pointer;
+}
+
+.image-row h2 {
+  color: #d60000;
+  margin: 10px 0;
+}
+
+/* Popcorn Section */
+.zero {
+  text-align: center;
+  padding: 40px 20px;
+  background: #fce4e4;
+}
+
+.zero img {
+  width: 300px;
+  border-radius: 10px;
+}
+
+.zero h2 {
+  color: #d60000;
+  margin-top: 20px;
+}
+
+.zero button {
+  padding: 10px 20px;
+  background: #d60000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Menu Section */
+.menu {
+  padding: 20px;
+}
+
+.menu h2 {
+  color: #d60000;
+  text-align: center;
+}
+
+.item {
+  background: #fff5f5;
+  margin: 10px auto;
+  padding: 15px;
+  border-radius: 8px;
+  max-width: 500px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  background: #eee;
+  font-size: 0.9em;
+}

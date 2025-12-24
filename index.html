@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KFC</title>
+  <link rel="icon" type="image" href="webpng.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #fff8f0;
+      color: #333;
+    }
+
+    header {
+      background-color: #d60000;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .logo {
+      font-size: 2.8rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 7rem 2rem;
+      background: url("backg.png") no-repeat center center/cover;
+      color: white;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    .hero h1, .hero p, .btn, .toggleparent {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      background-color: #d60000;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #b00000;
+    }
+
+    .menu {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .menu h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 300px;
+      padding: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .card h3 {
+      margin: 1rem 0 0.5rem;
+    }
+
+    .card button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #d60000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* price style added */
+    .price {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #d60000;
+      margin-bottom: 0.5rem;
+    }
+
+    footer {
+      background-color: #d60000;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+
+    ul {
+      margin-right: 80px;
+      margin-top: 20px;
+    }
+
+    .img {
+      height: 50px;
+      width: 50px;
+      margin-top: -30px;
+      margin-left: 200px;
+      cursor: pointer;
+    }
+
+    body.dark {
+      background-color: #1c1c1c;
+      color: #f5f5f5;
+    }
+
+    body.dark header,
+    body.dark footer {
+      background-color: #333;
+    }
+
+    body.dark .card {
+      background-color: #2a2a2a;
+      color: #f5f5f5;
+    }
+
+    #cart {
+      font-weight: bold;
+      margin-right: 50px;
+      margin-left: -10px;
+      width: 25px;
+      height: 25px;
+      margin-top: -30px;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      padding: 13px;
+      border-radius: 50%;
+      margin-right: 20px;
+      background-color: rgb(255, 255, 255);
+      color: #1c1c1c;
+    }
+
+    .cartParent{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .Toggle {
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+
+    .Toggle:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background-color: #d60000;
+        padding: 1rem;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">𝓚𝓕𝓒</div>
+    <nav>
+      <ul>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="deals.html">Deals</a></li>
+        <li><a href="#final">Contact</a></li>
+      </ul>
+
+      <div id="cartParent" style="float:right;">
+        <div id="cart"><b>0</b></div>
+      </div>
+
+      <img src="png.png" class="img" onclick="goToCart()">
+    </nav>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </header>
+
+  <section class="hero">
+    <h1>Finger Lickin' Good</h1>
+    <p>Delicious chicken meals delivered to your door.</p>
+    <a href="#popular" class="btn">Order Now</a>
+    <br><br>
+
+    <div class="toggleparent">
+      <button class="Toggle" onclick="toggleDarkMode()">
+        <img src="moon1.png" id="moon" width="20px" height="20px">
+        <img src="sun.png.png" id="sun" width="20px" height="20px" style="display:none;">
+      </button>
+    </div>
+  </section>
+
+  <div id="popular">
+    <section class="menu">
+      <h2>Popular Items</h2>
+
+      <div class="cards">
+
+        <div class="card">
+          <img src="KFC-Variety-Bucket.webp" alt="Variety Bucket" />
+          <h3>Variety Bucket</h3>
+          <p class="price">₹799</p>
+          <p>Rich chocolate ice cream with fudge topping.</p>
+          <button onclick="addToCart('Variety Bucket')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="KFC-Box-Meals.webp" alt="Box-Meals" />
+          <h3>Box-Meals</h3>
+          <p class="price">₹249</p>
+          <p>Grilled chicken wrap with fresh veggies.</p>
+          <button onclick="addToCart('Box-Meals')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="KFC-Value-Lunch.webp" alt="Value Lunch" />
+          <h3>Value Lunch</h3>
+          <p class="price">₹179</p>
+          <p>Seasoned fries with tangy peri peri flavor.</p>
+          <button onclick="addToCart('Value Lunch')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="VEGZINGER.jpg" alt="VEGZINGER" />
+          <h3>VEGZINGER</h3>
+          <p class="price">₹329</p>
+          <p>Hot & Crispy chicken with fries and drink.</p>
+          <button onclick="addToCart('VEGZINGER')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="KFC-BOGO-CHICKEN-ZINGER-22-JULY-465-X-327-F1B.webp" alt="Zinger Burger" />
+          <h3>Zinger Burger</h3>
+          <p class="price">₹189</p>
+          <p>Spicy chicken burger with mayo and lettuce.</p>
+          <button onclick="addToCart('Zinger Burger')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="KFC-Beverages.webp" alt="Beverages" />
+          <h3>Beverages</h3>
+          <p class="price">₹49</p>
+          <p>Refreshing cold drinks.</p>
+          <button onclick="addToCart('Beverages')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="KFC-Gold-Burger-White-Category-23MAY_4.webp" alt="Golden Burger" />
+          <h3>Golden Burger</h3>
+          <p class="price">₹219</p>
+          <p>Grilled chicken wrap with fresh veggies.</p>
+          <button onclick="addToCart('Golden Burger')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="KFC-Burger.webp" alt="Burger" />
+          <h3>Burger</h3>
+          <p class="price">₹159</p>
+          <p>Hot & Crispy chicken with fries and drink.</p>
+          <button onclick="addToCart('Burger')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+          <img src="KFC-rice-bowl.webp" alt="Rice Bowl" />
+          <h3>Rice Bowl</h3>
+          <p class="price">₹279</p>
+          <p>6-piece spicy wings with garlic dip.</p>
+          <button onclick="addToCart('Rice Bowl')">Add to Cart</button>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <div id="final">
+    <footer>
+      <p><b>support | contact | email</b></p>
+      <p>Location</p>
+      <p>&copy; 2025 KFC. Built by Vinoth</p>
+    </footer>
+  </div>
+
+  <script>
+    // prices object
+    const prices = {
+      "Variety Bucket": 799,
+      "Box-Meals": 249,
+      "Value Lunch": 179,
+      "VEGZINGER": 329,
+      "Zinger Burger": 189,
+      "Beverages": 49,
+      "Golden Burger": 219,
+      "Burger": 159,
+      "Rice Bowl": 279
+    };
+
+    let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    document.getElementById("cart").textContent = cartItems.length;
+
+    function addToCart(item) {
+      let price = prices[item] !== undefined ? prices[item] : 0;
+      alert(item + " added to cart! Price: ₹" + price);
+
+      cartItems.push({ name: item, price: price });
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+      document.getElementById("cart").textContent = cartItems.length;
+    }
+
+    function goToCart() {
+      window.location.href = "cart.html";
+    }
+
+    let bool = true;
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      const sun = document.getElementById("sun");
+      const moon = document.getElementById("moon");
+      if (bool) {
+        sun.style.display = "block";
+        moon.style.display = "none";
+        bool = false;
+      } else {
+        sun.style.display = "none";
+        moon.style.display = "block";
+        bool = true;
+      }
+    }
+
+    function toggleMenu() {
+      document.querySelector("nav ul").classList.toggle("show");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KFC Deals</title>
+<link rel="icon" type="image" href="webpng.png">
+<style>
+*{margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+body{
+    background:#fff8f0;
+    color:#333;
+}
+header{
+    background:#d60000;
+    color:#fff;
+    padding:1rem 2rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+.logo{
+    font-size:1.8rem;
+    font-weight:bold;
+}
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:1.5rem;
+}
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:500;
+}
+nav a:hover,nav a.active{
+    opacity:0.8;
+}
+.cart-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+#cartCount{
+    font-weight: bold;
+      margin-right: 50px;
+      margin-left: -10px;
+      width: 25px;
+      height: 25px;
+      margin-top: -30px;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      padding: 13px;
+      border-radius: 50%;
+      margin-right: 20px;
+      background-color: rgb(255, 255, 255);
+      color: #1c1c1c;
+}
+.cart-icon{
+    width:50px;
+    height:50px;
+    margin-top:-30px;
+    margin-left:220px;
+    cursor:pointer;
+}
+.hero{
+    height:40vh;background:url("kfcback.jpg") no-repeat center/cover;display:flex;justify-content:center;align-items:center;text-align:center;color:white;position:relative;}
+.hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,0.4);}
+.hero .hero-text{position:relative;z-index:1;}
+.hero h1{font-size:2.5rem;margin-bottom:0.5rem;}
+.hero p{font-size:1.1rem;}
+.deals-section{padding:3rem 2rem;}
+.deals-section h2{font-size:2rem;text-align:center;margin-bottom:2rem;color:#d60000;}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2rem;}
+.card{background:white;border-radius:10px;box-shadow:0 4px 8px rgba(0,0,0,0.1);overflow:hidden;transition:transform 0.3s ease;}
+.card:hover{transform:scale(1.03);}
+.card img{width:100%;height:200px;object-fit:cover;}
+.card-body{padding:1rem;text-align:center;}
+.card-body h3{margin:1rem 0 0.5rem;color:#d60000;}
+.card-body p{font-size:0.95rem;color:#555;}
+.card-body .price{font-weight:bold;margin-top:0.5rem;}
+.card-body button{margin-top:1rem;padding:0.5rem 1rem;background:#d60000;color:white;border:none;border-radius:5px;cursor:pointer;transition:background 0.3s;}
+.card-body button:hover{background:#b00000;}
+footer{background:#d60000;color:white;text-align:center;padding:1rem;margin-top:3rem;}
+@media(max-width:768px){nav ul{display:none;flex-direction:column;background:#d60000;padding:1rem;}nav ul.show{display:flex;}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">KFC</div>
+<nav>
+<ul>
+<li><a href="roug1.html">Home</a></li>
+<li><a href="menu.html">Menu</a></li>
+<li><a href="deals.html" class="active">Deals</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<div class="cart-box">
+<span id="cartCount">0</span>
+<img src="png.png" alt="Cart" class="cart-icon" onclick="goToCart()">
+</div>
+</nav>
+</header>
+
+<section class="hero">
+<div class="hero-text">
+<h1>Great Deals, Bigger Savings</h1>
+<p>Check out our latest offers and special combos.</p>
+</div>
+</section>
+
+<section class="deals-section">
+<h2>Latest Deals</h2>
+<div class="cards" id="dealItems"></div>
+</section>
+
+<footer id="contact">
+<p><b>support | contact | email</b></p>
+<p>Location</p>
+<p>&copy; 2025 KFC. Built by Vinoth</p>
+</footer>
+
+<script>
+// Deals data
+const dealData=[
+{name:"5 pc Leg Piece Bucket Meal",price:619,img:"5 pc Leg Piece Bucket Meal.jpg",desc:"Save 22% on 5 leg pieces, 2 dips & fries"},
+{name:"10 pc Hot & Crispy Chicken",price:748,img:"10 pc Hot & Crispy Chicken.jpg",desc:"Save 29% on 8 pc Hot & Crispy"},
+{name:"All Chicken Box",price:189,img:"All Chicken Box.jpg",desc:"1 pc Hot & Crispy, 2 Wings & 1 Strip"},
+{name:"Buddy Popcorn Nachos Meal",price:448,img:"Buddy Popcorn Nachos Meal.jpg",desc:"Two ka crunch, in one munch!"},
+{name:"Veg Biryani Bucket",price:188,img:"Veg Biryani Bucket.jpg",desc:"Hyderabadi style rice with veg patty & gravy"}
+];
+
+// Load cart items
+let cartItems=JSON.parse(localStorage.getItem("cartItems"))||[];
+document.getElementById("cartCount").textContent=cartItems.reduce((sum,i)=>sum+i.qty,0);
+
+const dealContainer=document.getElementById("dealItems");
+
+// Create deal cards
+dealData.forEach(item=>{
+const card=document.createElement("div");
+card.className="card";
+card.innerHTML=`
+<img src="${item.img}" alt="${item.name}">
+<div class="card-body">
+<h3>${item.name}</h3>
+<p>${item.desc}</p>
+<div class="price">₹${item.price}</div>
+<button onclick="addToCart('${item.name}',${item.price},'${item.img}')">Add to Cart</button>
+</div>
+`;
+dealContainer.appendChild(card);
+});
+
+// Add to Cart
+function addToCart(name,price,img){
+const existing=cartItems.find(item=>item.name===name);
+if(existing){existing.qty++;}
+else{cartItems.push({name,price,img,qty:1});}
+localStorage.setItem("cartItems",JSON.stringify(cartItems));
+document.getElementById("cartCount").textContent=cartItems.reduce((sum,i)=>sum+i.qty,0);
+alert(`${name} added to your cart! 🍗`);
+}
+
+// Go to cart page
+function goToCart(){window.location.href="cart.html";}
+
+// Toggle mobile menu
+function toggleMenu(){document.querySelector("nav ul").classList.toggle("show");}
+</script>
+</body>
+</html>

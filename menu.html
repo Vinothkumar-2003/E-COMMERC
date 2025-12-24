@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KFC Menu</title>
+<link rel="icon" type="image" href="webpng.png">
+<style>
+* {margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',
+    sans-serif;
+}
+body{
+    background:#fff8f0;
+    color:#333;
+}
+header{
+    background:#d60000;
+    color:#fff;
+    padding:1rem 2rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+.logo{
+    font-size:1.8rem;
+    font-weight:bold;
+}
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:1.5rem;
+}
+ul{
+    margin-right:80px;
+    margin-top:20px;
+}
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:500;
+    transition:opacity 0.3s;
+}
+nav a:hover,nav a.active
+{opacity:0.8;
+}
+.cart-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.cart-icon{
+    width:50px;
+    height:50px;
+    margin-top:-30px;
+    margin-left:220px;
+    cursor:pointer;
+}
+#cartCount{
+     font-weight: bold;
+      margin-right: 50px;
+      margin-left: -10px;
+      width: 25px;
+      height: 25px;
+      margin-top: -30px;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      padding: 13px;
+      border-radius: 50%;
+      margin-right: 20px;
+      background-color: rgb(255, 255, 255);
+      color: #1c1c1c;
+    
+}
+.menu-toggle{
+    display:none;
+    font-size:1.5rem;
+    color:white;
+    background:none;
+    border:none;
+}
+.hero{
+    height:50vh;
+    background:url("kfc background.jpg") no-repeat center center/cover;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+    position:relative;
+}
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+}
+.hero-text{
+    position:relative;
+    z-index:2;
+}
+.hero h1{
+    font-size:3rem;
+    margin-bottom:0.5rem;
+}
+.hero p{
+    font-size:1.2rem;
+}
+.category-nav{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:1rem;
+    margin:2rem 0;
+}
+.category-nav button{
+    padding:0.6rem 1.2rem;
+    border:2px solid #d60000;
+    background:#fff;
+    color:#d60000;
+    font-weight:bold;
+    border-radius:5px;
+    cursor:pointer;
+    transition:all 0.3s ease;
+}
+.category-nav button:hover,
+.category-nav button.active{
+    background:#d60000;
+    color:#fff;
+}
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:2rem;
+    padding:0 2rem 3rem;
+}
+.card{
+    background:white;
+    border-radius:10px;
+    box-shadow:0 4px 8px rgba(0,0,0,0.1);
+    overflow:hidden;
+    transition:transform 0.3s ease,box-shadow 0.3s ease;
+}
+.card:hover{
+    transform:scale(1.03);
+    box-shadow:0 6px 12px rgba(0,0,0,0.2);
+}
+.card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+.card-body{
+    padding:1rem;
+    text-align:center;
+}
+.card-body h3{
+    margin-bottom:0.5rem;
+    color:#d60000;
+}
+.card-body p{
+    font-size:0.95rem;
+    color:#555;
+}
+.card-body .price{
+    font-weight:bold;
+    margin-top:0.5rem;
+}
+.card-body button{
+    margin-top:1rem;
+    padding:0.5rem 1rem;
+    background:#d60000;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    transition:background 0.3s;
+}
+.card-body button:hover{
+    background:#b00000;
+}
+footer{
+    background:#d60000;
+    color:white;
+    text-align:center;
+    padding:1rem;
+    font-size:0.9rem;
+}
+@media(max-width:768px){
+    nav ul{
+        display:none;
+        flex-direction:column;
+        background:#d60000;
+        padding:1rem;
+        }
+        nav ul.show{
+            display:flex;
+            }
+            .menu-toggle{
+                display:block;
+                }
+                }
+</style>
+</head>
+<body>
+<header>
+<div class="logo">KFC</div>
+<nav>
+<ul>
+<li><a href="roug1.html">Home</a></li>
+<li><a href="menu.html" class="active">Menu</a></li>
+<li><a href="deals.html">Deals</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<div class="cart-box">
+<span id="cartCount">0</span>
+<img src="png.png" alt="Cart" class="cart-icon" onclick="goToCart()">
+</div>
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+</nav>
+</header>
+
+<section class="hero">
+<div class="hero-text">
+<h1>Welcome to KFC</h1>
+<p>Discover all your finger-lickin’ favorites</p>
+</div>
+</section>
+
+<section class="menu-section">
+<div class="category-nav" id="categoryNav">
+<button class="active" data-cat="chickenBuckets">Chicken Buckets</button>
+<button data-cat="boxMeals">Box Meals</button>
+<button data-cat="burgers">Burgers</button>
+<button data-cat="biryaniBuckets">Biryani Buckets</button>
+<button data-cat="snacks">Snacks</button>
+<button data-cat="beverages">Beverages</button>
+</div>
+
+<div class="cards" id="menuItems"></div>
+</section>
+
+<footer id="contact">
+<p><b>support | contact | email</b></p>
+<p>Location</p>
+<p>&copy; 2025 KFC. Built by Vinoth</p>
+</footer>
+
+<script>
+const menuData={
+chickenBuckets:[
+{name:"Variety Bucket",price:599,img:"KFC-Variety-Bucket.webp"},
+{name:"Classic Bucket",price:499,img:"KFC-Box-Meals.webp"},
+{name:"Hot & Crispy Bucket",price:649,img:"KFC-Value-Lunch.webp"}
+],
+boxMeals:[
+{name:"Zinger Box",price:299,img:"KFC-BOGO-CHICKEN-ZINGER-22-JULY-465-X-327-F1B.webp"},
+{name:"Chicken Box",price:329,img:"KFC-rice-bowl.webp"}
+],
+burgers:[
+{name:"Zinger Burger",price:199,img:"KFC-Burger.webp"},
+{name:"Golden Burger",price:249,img:"KFC-Gold-Burger-White-Category-23MAY_4.webp"},
+{name:"Veg Zinger",price:179,img:"VEGZINGER.jpg"}
+],
+biryaniBuckets:[
+{name:"Classic Chicken Biryani",price:269,img:"Classic Chicken Biryani.jpg"},
+{name:"Smoky Grilled Biryani",price:299,img:"Smoky Grilled Biryani.jpg"}
+],
+snacks:[
+{name:"Popcorn Chicken",price:149,img:"Popcorn Chicken.jpg"},
+{name:"French Fries",price:99,img:"French Fries.jpg"},
+{name:"Hot Wings (6 Pc)",price:229,img:"Hot Wings (6 Pc).jpg"}
+],
+beverages:[
+{name:"Pepsi",price:69,img:"KFC-Beverages.webp"},
+{name:"Mirinda",price:69,img:"Mirinda.jpg"},
+{name:"7UP",price:69,img:"7up.webp"}
+]
+};
+
+const menuItemsContainer=document.getElementById("menuItems");
+const categoryButtons=document.querySelectorAll(".category-nav button");
+let cartItems=JSON.parse(localStorage.getItem("cartItems"))||[];
+
+
+function updateCartCount(){
+let totalQty=cartItems.reduce((sum,item)=>sum+item.qty,0);
+document.getElementById("cartCount").textContent=totalQty;
+}
+updateCartCount();
+
+
+function renderMenu(category){
+menuItemsContainer.innerHTML="";
+menuData[category].forEach(item=>{
+const card=document.createElement("div");
+card.classList.add("card");
+card.innerHTML=`
+<img src="${item.img}" alt="${item.name}">
+<div class="card-body">
+<h3>${item.name}</h3>
+<p>Delicious & freshly prepared</p>
+<div class="price">₹${item.price}</div>
+<button onclick="addToCart('${item.name}',${item.price},'${item.img}')">Add to Cart</button>
+</div>
+`;
+menuItemsContainer.appendChild(card);
+});
+}
+
+function addToCart(name,price,img){
+const existing=cartItems.find(item=>item.name===name);
+if(existing){existing.qty++;}
+else{cartItems.push({name,price,img,qty:1});}
+localStorage.setItem("cartItems",JSON.stringify(cartItems));
+updateCartCount();
+alert(`${name} added to cart! 🍗`);
+}
+
+categoryButtons.forEach(btn=>{
+btn.addEventListener("click",()=>{
+document.querySelector(".category-nav button.active")?.classList.remove("active");
+btn.classList.add("active");
+renderMenu(btn.getAttribute("data-cat"));
+});
+});
+renderMenu("chickenBuckets");
+function goToCart(){window.location.href="cart.html";}
+function toggleMenu(){document.querySelector("nav ul").classList.toggle("show");}
+</script>
+</body>
+</html>
