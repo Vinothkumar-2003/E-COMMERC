@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>KFC Menu</title>
-<link rel="icon" type="image" href="webpng.png">
+<link rel="icon" type="image" href="assets/webpng.png">
 <style>
 * {margin:0;
     padding:0;
@@ -31,14 +31,19 @@ header{
     font-size:1.8rem;
     font-weight:bold;
 }
+nav{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+}
 nav ul{
     list-style:none;
     display:flex;
     gap:1.5rem;
+    align-items:center;
 }
 ul{
-    margin-right:80px;
-    margin-top:20px;
+    margin:0;
 }
 nav a{
     color:white;
@@ -50,33 +55,32 @@ nav a:hover,nav a.active
 {opacity:0.8;
 }
 .cart-box{
-    display:flex;
-    align-items:center;
-    gap:10px;
+    position:relative;
+    display:inline-block;
+    flex:0 0 auto;
 }
 .cart-icon{
     width:50px;
     height:50px;
-    margin-top:-30px;
-    margin-left:220px;
+    display:block;
     cursor:pointer;
 }
 #cartCount{
      font-weight: bold;
-      margin-right: 50px;
-      margin-left: -10px;
-      width: 25px;
-      height: 25px;
-      margin-top: -30px;
+      position:absolute;
+      top:-8px;
+      right:-8px;
+      width:24px;
+      height:24px;
       display:flex;
       justify-content: center;
       align-items: center;
-      padding: 13px;
+      padding:0;
       border-radius: 50%;
-      margin-right: 20px;
       background-color: rgb(255, 255, 255);
       color: #1c1c1c;
-    
+      font-size:0.85rem;
+      line-height:1;
 }
 .menu-toggle{
     display:none;
@@ -84,10 +88,11 @@ nav a:hover,nav a.active
     color:white;
     background:none;
     border:none;
+    cursor:pointer;
 }
 .hero{
     height:50vh;
-    background:url("kfc background.jpg") no-repeat center center/cover;
+    background:url("assets/kfc background.jpg") no-repeat center center/cover;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -193,11 +198,22 @@ footer{
     font-size:0.9rem;
 }
 @media(max-width:768px){
+    header{
+        flex-wrap:wrap;
+    }
+    nav{
+        gap:1rem;
+    }
     nav ul{
         display:none;
         flex-direction:column;
         background:#d60000;
         padding:1rem;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        text-align:center;
         }
         nav ul.show{
             display:flex;
@@ -220,7 +236,7 @@ footer{
 </ul>
 <div class="cart-box">
 <span id="cartCount">0</span>
-<img src="png.png" alt="Cart" class="cart-icon" onclick="goToCart()">
+<img src="assets/png.png" alt="Cart" class="cart-icon" onclick="goToCart()">
 </div>
 <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 </nav>
@@ -255,32 +271,32 @@ footer{
 <script>
 const menuData={
 chickenBuckets:[
-{name:"Variety Bucket",price:599,img:"KFC-Variety-Bucket.webp"},
-{name:"Classic Bucket",price:499,img:"KFC-Box-Meals.webp"},
-{name:"Hot & Crispy Bucket",price:649,img:"KFC-Value-Lunch.webp"}
+{name:"Variety Bucket",price:599,img:"assets/KFC-Variety-Bucket.webp"},
+{name:"Classic Bucket",price:499,img:"assets/KFC-Box-Meals.webp"},
+{name:"Hot & Crispy Bucket",price:649,img:"assets/KFC-Value-Lunch.webp"}
 ],
 boxMeals:[
-{name:"Zinger Box",price:299,img:"KFC-BOGO-CHICKEN-ZINGER-22-JULY-465-X-327-F1B.webp"},
-{name:"Chicken Box",price:329,img:"KFC-rice-bowl.webp"}
+{name:"Zinger Box",price:299,img:"assets/KFC-BOGO-CHICKEN-ZINGER-22-JULY-465-X-327-F1B.webp"},
+{name:"Chicken Box",price:329,img:"assets/KFC-rice-bowl.webp"}
 ],
 burgers:[
-{name:"Zinger Burger",price:199,img:"KFC-Burger.webp"},
-{name:"Golden Burger",price:249,img:"KFC-Gold-Burger-White-Category-23MAY_4.webp"},
-{name:"Veg Zinger",price:179,img:"VEGZINGER.jpg"}
+{name:"Zinger Burger",price:199,img:"assets/KFC-Burger.webp"},
+{name:"Golden Burger",price:249,img:"assets/KFC-Gold-Burger-White-Category-23MAY_4.webp"},
+{name:"Veg Zinger",price:179,img:"assets/VEGZINGER.jpg"}
 ],
 biryaniBuckets:[
-{name:"Classic Chicken Biryani",price:269,img:"Classic Chicken Biryani.jpg"},
-{name:"Smoky Grilled Biryani",price:299,img:"Smoky Grilled Biryani.jpg"}
+{name:"Classic Chicken Biryani",price:269,img:"assets/Classic Chicken Biryani.jpg"},
+{name:"Smoky Grilled Biryani",price:299,img:"assets/Smoky Grilled Biryani.jpg"}
 ],
 snacks:[
-{name:"Popcorn Chicken",price:149,img:"Popcorn Chicken.jpg"},
-{name:"French Fries",price:99,img:"French Fries.jpg"},
-{name:"Hot Wings (6 Pc)",price:229,img:"Hot Wings (6 Pc).jpg"}
+{name:"Popcorn Chicken",price:149,img:"assets/Popcorn Chicken.jpg"},
+{name:"French Fries",price:99,img:"assets/French Fries.jpg"},
+{name:"Hot Wings (6 Pc)",price:229,img:"assets/Hot Wings (6 Pc).jpg"}
 ],
 beverages:[
-{name:"Pepsi",price:69,img:"KFC-Beverages.webp"},
-{name:"Mirinda",price:69,img:"Mirinda.jpg"},
-{name:"7UP",price:69,img:"7up.webp"}
+{name:"Pepsi",price:69,img:"assets/KFC-Beverages.webp"},
+{name:"Mirinda",price:69,img:"assets/Mirinda.jpg"},
+{name:"7UP",price:69,img:"assets/7up.webp"}
 ]
 };
 
@@ -290,7 +306,7 @@ let cartItems=JSON.parse(localStorage.getItem("cartItems"))||[];
 
 
 function updateCartCount(){
-let totalQty=cartItems.reduce((sum,item)=>sum+item.qty,0);
+let totalQty=cartItems.reduce((sum,item)=>sum+(item.qty||1),0);
 document.getElementById("cartCount").textContent=totalQty;
 }
 updateCartCount();
@@ -316,7 +332,7 @@ menuItemsContainer.appendChild(card);
 
 function addToCart(name,price,img){
 const existing=cartItems.find(item=>item.name===name);
-if(existing){existing.qty++;}
+if(existing){existing.qty=(existing.qty||1)+1;existing.price=price;existing.img=img;}
 else{cartItems.push({name,price,img,qty:1});}
 localStorage.setItem("cartItems",JSON.stringify(cartItems));
 updateCartCount();

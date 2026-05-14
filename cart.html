@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KFC Cart</title>
-<link rel="icon" type="image" href="ebpng.webp">
+<link rel="icon" type="image" href="assets/ebpng.webp">
 <style>
 body{font-family:'Segoe UI',sans-serif;background:#fff8f0;color:#333;padding:2rem;}
 h1{text-align:center;color:#d60000;margin-bottom:2rem;}
@@ -43,7 +43,43 @@ button:hover{background:#b00000;}
 
 <script>
 // Load cart items
+const catalog = {
+  "Variety Bucket": { price: 799, img: "assets/KFC-Variety-Bucket.webp" },
+  "Box-Meals": { price: 249, img: "assets/KFC-Box-Meals.webp" },
+  "Value Lunch": { price: 179, img: "assets/KFC-Value-Lunch.webp" },
+  "VEGZINGER": { price: 329, img: "assets/VEGZINGER.jpg" },
+  "Zinger Burger": { price: 189, img: "assets/KFC-BOGO-CHICKEN-ZINGER-22-JULY-465-X-327-F1B.webp" },
+  "Beverages": { price: 49, img: "assets/KFC-Beverages.webp" },
+  "Golden Burger": { price: 219, img: "assets/KFC-Gold-Burger-White-Category-23MAY_4.webp" },
+  "Burger": { price: 159, img: "assets/KFC-Burger.webp" },
+  "Rice Bowl": { price: 279, img: "assets/KFC-rice-bowl.webp" },
+  "Classic Bucket": { price: 499, img: "assets/KFC-Box-Meals.webp" },
+  "Hot & Crispy Bucket": { price: 649, img: "assets/KFC-Value-Lunch.webp" },
+  "Zinger Box": { price: 299, img: "assets/KFC-BOGO-CHICKEN-ZINGER-22-JULY-465-X-327-F1B.webp" },
+  "Chicken Box": { price: 329, img: "assets/KFC-rice-bowl.webp" },
+  "Veg Zinger": { price: 179, img: "assets/VEGZINGER.jpg" },
+  "Classic Chicken Biryani": { price: 269, img: "assets/Classic Chicken Biryani.jpg" },
+  "Smoky Grilled Biryani": { price: 299, img: "assets/Smoky Grilled Biryani.jpg" },
+  "Popcorn Chicken": { price: 149, img: "assets/Popcorn Chicken.jpg" },
+  "French Fries": { price: 99, img: "assets/French Fries.jpg" },
+  "Hot Wings (6 Pc)": { price: 229, img: "assets/Hot Wings (6 Pc).jpg" },
+  "Pepsi": { price: 69, img: "assets/KFC-Beverages.webp" },
+  "Mirinda": { price: 69, img: "assets/Mirinda.jpg" },
+  "7UP": { price: 69, img: "assets/7up.webp" },
+  "5 pc Leg Piece Bucket Meal": { price: 619, img: "assets/5 pc Leg Piece Bucket Meal.jpg" },
+  "10 pc Hot & Crispy Chicken": { price: 748, img: "assets/10 pc Hot & Crispy Chicken.jpg" },
+  "All Chicken Box": { price: 189, img: "assets/All Chicken Box.jpg" },
+  "Buddy Popcorn Nachos Meal": { price: 448, img: "assets/Buddy Popcorn Nachos Meal.jpg" },
+  "Veg Biryani Bucket": { price: 188, img: "assets/Veg Biryani Bucket.jpg" }
+};
+
 let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+cartItems = cartItems.map(item => ({
+  ...item,
+  price: item.price ?? catalog[item.name]?.price ?? 0,
+  img: item.img || catalog[item.name]?.img,
+  qty: item.qty || 1
+}));
 const cartTableBody = document.querySelector("#cartTable tbody");
 const grandTotalEl = document.getElementById("grandTotal");
 
@@ -58,7 +94,7 @@ function renderCart() {
 
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td><img src="${item.img}" alt="${item.name}"></td>
+      <td><img src="${getImagePath(item.img)}" alt="${item.name}"></td>
       <td>${item.name}</td>
       <td>₹${item.price}</td>
       <td>
@@ -101,21 +137,29 @@ function removeItem(index) {
 // Initial render
 renderCart();
 
+function getImagePath(img) {
+  if (!img || img.startsWith("assets/") || img.startsWith("http")) {
+    return img;
+  }
+
+  return `assets/${img}`;
+}
+
 // updated addToCart()
 function addToCart(itemName) {
   let price = prices[itemName];
 
   // image mapping
   const images = {
-    "Variety Bucket": "KFC-Variety-Bucket.webp",
-    "Box-Meals": "KFC-Box-Meals.webp",
-    "Value Lunch": "KFC-Value-Lunch.webp",
-    "VEGZINGER": "VEGZINGER.jpg",
-    "Zinger Burger": "KFC-BOGO-CHICKEN-ZINGER-22-JULY-465-X-327-F1B.webp",
-    "Beverages": "KFC-Beverages.webp",
-    "Golden Burger": "KFC-Gold-Burger-White-Category-23MAY_4.webp",
-    "Burger": "KFC-Burger.webp",
-    "Rice Bowl": "KFC-rice-bowl.webp"
+    "Variety Bucket": "assets/KFC-Variety-Bucket.webp",
+    "Box-Meals": "assets/KFC-Box-Meals.webp",
+    "Value Lunch": "assets/KFC-Value-Lunch.webp",
+    "VEGZINGER": "assets/VEGZINGER.jpg",
+    "Zinger Burger": "assets/KFC-BOGO-CHICKEN-ZINGER-22-JULY-465-X-327-F1B.webp",
+    "Beverages": "assets/KFC-Beverages.webp",
+    "Golden Burger": "assets/KFC-Gold-Burger-White-Category-23MAY_4.webp",
+    "Burger": "assets/KFC-Burger.webp",
+    "Rice Bowl": "assets/KFC-rice-bowl.webp"
   };
 
   let img = images[itemName];

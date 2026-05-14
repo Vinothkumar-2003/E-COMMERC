@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KFC</title>
-  <link rel="icon" type="image" href="webpng.png">
+  <link rel="icon" type="image" href="assets/webpng.png">
   <style>
     * {
       margin: 0;
@@ -39,6 +39,13 @@
       list-style: none;
       display: flex;
       gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
     }
 
     nav a {
@@ -53,12 +60,13 @@
       background: none;
       border: none;
       color: white;
+      cursor: pointer;
     }
 
     .hero {
       text-align: center;
       padding: 7rem 2rem;
-      background: url("backg.png") no-repeat center center/cover;
+      background: url("assets/backg.png") no-repeat center center/cover;
       color: white;
       position: relative;
     }
@@ -168,15 +176,12 @@
     }
 
     ul {
-      margin-right: 80px;
-      margin-top: 20px;
+      margin: 0;
     }
 
     .img {
       height: 50px;
       width: 50px;
-      margin-top: -30px;
-      margin-left: 200px;
       cursor: pointer;
     }
 
@@ -195,27 +200,28 @@
       color: #f5f5f5;
     }
 
-    #cart {
-      font-weight: bold;
-      margin-right: 50px;
-      margin-left: -10px;
-      width: 25px;
-      height: 25px;
-      margin-top: -30px;
-      display:flex;
-      justify-content: center;
-      align-items: center;
-      padding: 13px;
-      border-radius: 50%;
-      margin-right: 20px;
-      background-color: rgb(255, 255, 255);
-      color: #1c1c1c;
+    #cartParent {
+      position: relative;
+      display: inline-block;
+      flex: 0 0 auto;
     }
 
-    .cartParent{
+    #cart {
+      font-weight: bold;
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 24px;
+      height: 24px;
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 0;
+      border-radius: 50%;
+      background-color: rgb(255, 255, 255);
+      color: #1c1c1c;
+      font-size: 0.85rem;
+      line-height: 1;
     }
 
     .Toggle {
@@ -232,11 +238,24 @@
     }
 
     @media (max-width: 768px) {
+      header {
+        flex-wrap: wrap;
+      }
+
+      nav {
+        gap: 1rem;
+      }
+
       nav ul {
         display: none;
         flex-direction: column;
         background-color: #d60000;
         padding: 1rem;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        text-align: center;
       }
 
       nav ul.show {
@@ -251,7 +270,7 @@
 </head>
 <body>
   <header>
-    <div class="logo">𝓚𝓕𝓒</div>
+    <div class="logo">𝓚𝓕𝓒 </div>
     <nav>
       <ul>
         <li><a href="menu.html">Menu</a></li>
@@ -259,13 +278,12 @@
         <li><a href="#final">Contact</a></li>
       </ul>
 
-      <div id="cartParent" style="float:right;">
+      <div id="cartParent">
         <div id="cart"><b>0</b></div>
+        <img src="assets/png.png" class="img" onclick="goToCart()">
       </div>
-
-      <img src="png.png" class="img" onclick="goToCart()">
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     </nav>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
   </header>
 
   <section class="hero">
@@ -276,8 +294,8 @@
 
     <div class="toggleparent">
       <button class="Toggle" onclick="toggleDarkMode()">
-        <img src="moon1.png" id="moon" width="20px" height="20px">
-        <img src="sun.png.png" id="sun" width="20px" height="20px" style="display:none;">
+        <img src="assets/moon1.png" id="moon" width="20px" height="20px">
+        <img src="assets/sun.png.png" id="sun" width="20px" height="20px" style="display:none;">
       </button>
     </div>
   </section>
@@ -289,7 +307,7 @@
       <div class="cards">
 
         <div class="card">
-          <img src="KFC-Variety-Bucket.webp" alt="Variety Bucket" />
+          <img src="assets/KFC-Variety-Bucket.webp" alt="Variety Bucket" />
           <h3>Variety Bucket</h3>
           <p class="price">₹799</p>
           <p>Rich chocolate ice cream with fudge topping.</p>
@@ -297,7 +315,7 @@
         </div>
 
         <div class="card">
-          <img src="KFC-Box-Meals.webp" alt="Box-Meals" />
+          <img src="assets/KFC-Box-Meals.webp" alt="Box-Meals" />
           <h3>Box-Meals</h3>
           <p class="price">₹249</p>
           <p>Grilled chicken wrap with fresh veggies.</p>
@@ -305,7 +323,7 @@
         </div>
 
         <div class="card">
-          <img src="KFC-Value-Lunch.webp" alt="Value Lunch" />
+          <img src="assets/KFC-Value-Lunch.webp" alt="Value Lunch" />
           <h3>Value Lunch</h3>
           <p class="price">₹179</p>
           <p>Seasoned fries with tangy peri peri flavor.</p>
@@ -313,7 +331,7 @@
         </div>
 
         <div class="card">
-          <img src="VEGZINGER.jpg" alt="VEGZINGER" />
+          <img src="assets/VEGZINGER.jpg" alt="VEGZINGER" />
           <h3>VEGZINGER</h3>
           <p class="price">₹329</p>
           <p>Hot & Crispy chicken with fries and drink.</p>
@@ -321,7 +339,7 @@
         </div>
 
         <div class="card">
-          <img src="KFC-BOGO-CHICKEN-ZINGER-22-JULY-465-X-327-F1B.webp" alt="Zinger Burger" />
+          <img src="assets/KFC-BOGO-CHICKEN-ZINGER-22-JULY-465-X-327-F1B.webp" alt="Zinger Burger" />
           <h3>Zinger Burger</h3>
           <p class="price">₹189</p>
           <p>Spicy chicken burger with mayo and lettuce.</p>
@@ -329,7 +347,7 @@
         </div>
 
         <div class="card">
-          <img src="KFC-Beverages.webp" alt="Beverages" />
+          <img src="assets/KFC-Beverages.webp" alt="Beverages" />
           <h3>Beverages</h3>
           <p class="price">₹49</p>
           <p>Refreshing cold drinks.</p>
@@ -337,7 +355,7 @@
         </div>
 
         <div class="card">
-          <img src="KFC-Gold-Burger-White-Category-23MAY_4.webp" alt="Golden Burger" />
+          <img src="assets/KFC-Gold-Burger-White-Category-23MAY_4.webp" alt="Golden Burger" />
           <h3>Golden Burger</h3>
           <p class="price">₹219</p>
           <p>Grilled chicken wrap with fresh veggies.</p>
@@ -345,7 +363,7 @@
         </div>
 
         <div class="card">
-          <img src="KFC-Burger.webp" alt="Burger" />
+          <img src="assets/KFC-Burger.webp" alt="Burger" />
           <h3>Burger</h3>
           <p class="price">₹159</p>
           <p>Hot & Crispy chicken with fries and drink.</p>
@@ -353,7 +371,7 @@
         </div>
 
         <div class="card">
-          <img src="KFC-rice-bowl.webp" alt="Rice Bowl" />
+          <img src="assets/KFC-rice-bowl.webp" alt="Rice Bowl" />
           <h3>Rice Bowl</h3>
           <p class="price">₹279</p>
           <p>6-piece spicy wings with garlic dip.</p>
@@ -386,17 +404,46 @@
       "Rice Bowl": 279
     };
 
+    const images = {
+      "Variety Bucket": "assets/KFC-Variety-Bucket.webp",
+      "Box-Meals": "assets/KFC-Box-Meals.webp",
+      "Value Lunch": "assets/KFC-Value-Lunch.webp",
+      "VEGZINGER": "assets/VEGZINGER.jpg",
+      "Zinger Burger": "assets/KFC-BOGO-CHICKEN-ZINGER-22-JULY-465-X-327-F1B.webp",
+      "Beverages": "assets/KFC-Beverages.webp",
+      "Golden Burger": "assets/KFC-Gold-Burger-White-Category-23MAY_4.webp",
+      "Burger": "assets/KFC-Burger.webp",
+      "Rice Bowl": "assets/KFC-rice-bowl.webp"
+    };
+
     let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    document.getElementById("cart").textContent = cartItems.length;
+    cartItems = cartItems.map(item => ({
+      ...item,
+      price: item.price ?? prices[item.name] ?? 0,
+      img: item.img || images[item.name],
+      qty: item.qty || 1
+    }));
+    updateCartCount();
+
+    function updateCartCount() {
+      document.getElementById("cart").textContent = cartItems.reduce((sum, item) => sum + (item.qty || 1), 0);
+    }
 
     function addToCart(item) {
       let price = prices[item] !== undefined ? prices[item] : 0;
       alert(item + " added to cart! Price: ₹" + price);
 
-      cartItems.push({ name: item, price: price });
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      const existing = cartItems.find(cartItem => cartItem.name === item);
+      if (existing) {
+        existing.qty = (existing.qty || 1) + 1;
+        existing.price = price;
+        existing.img = images[item];
+      } else {
+        cartItems.push({ name: item, price: price, img: images[item], qty: 1 });
+      }
 
-      document.getElementById("cart").textContent = cartItems.length;
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      updateCartCount();
     }
 
     function goToCart() {
